@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #e11d48;
-            --primary-dark: #be123c;
-            --secondary: #f59e0b;
-            --light: #fef2f2;
-            --dark: #1f2937;
-            --gray: #6b7280;
-            --light-gray: #f9fafb;
+            --primary: #0f766e;
+            --primary-dark: #0b5d57;
+            --secondary: #14b8a6;
+            --light: #ecfeff;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
             --white: #ffffff;
-            --success: #10b981;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --radius: 12px;
+            --success: #16a34a;
+            --shadow: 0 10px 20px -12px rgba(15, 23, 42, 0.35), 0 6px 12px -8px rgba(15, 23, 42, 0.3);
+            --shadow-lg: 0 25px 45px -30px rgba(15, 23, 42, 0.45), 0 18px 35px -22px rgba(15, 23, 42, 0.35);
+            --radius: 14px;
             --transition: all 0.3s ease;
         }
 
@@ -36,16 +36,44 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'IBM Plex Sans', sans-serif;
             color: var(--dark);
-            background: linear-gradient(to bottom, #fef2f2, #ffffff, #fffbeb);
+            background: radial-gradient(circle at top left, #e0f7f6 0%, #ffffff 45%, #ecfeff 100%);
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            z-index: -1;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -120px;
+            left: -160px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.35), rgba(15, 118, 110, 0.08));
+        }
+
+        body::after {
+            bottom: -180px;
+            right: -140px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.25), rgba(16, 185, 129, 0.05));
         }
 
         h1, h2, h3, h4, h5 {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'IBM Plex Serif', serif;
             font-weight: 700;
             line-height: 1.2;
+            letter-spacing: -0.015em;
         }
 
         .container {
@@ -56,13 +84,16 @@
         }
 
         .section {
-            padding: 80px 0;
+            padding: 90px 0;
+            scroll-margin-top: 110px;
         }
 
         /* Header Styles - GÜNCELLENDİ */
         header {
-            background-color: var(--white);
+            background-color: rgba(255, 255, 255, 0.9);
             box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(15, 118, 110, 0.12);
             position: fixed;
             width: 100%;
             top: 0;
@@ -91,6 +122,7 @@
         .logo-text h1 {
             font-size: 16px;
             color: var(--primary);
+            letter-spacing: 0.01em;
         }
 
         .logo-text p {
@@ -119,11 +151,14 @@
             white-space: nowrap;
             min-height: 50px;
             box-sizing: border-box;
+            border: 1px solid transparent;
         }
 
         .nav-link:hover, .nav-link.active {
             background-color: var(--primary);
             color: var(--white);
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
         }
 
         .donate-btn {
@@ -141,6 +176,7 @@
             box-shadow: var(--shadow);
             white-space: nowrap;
             min-height: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .donate-btn:hover {
@@ -274,7 +310,7 @@
             padding: 12px 15px;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'IBM Plex Sans', sans-serif;
         }
 
         .card-row {
@@ -348,7 +384,8 @@
             overflow: hidden;
             box-shadow: var(--shadow-lg);
             position: relative;
-            height: 500px;
+            height: 520px;
+            outline: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .hero-image {
@@ -363,20 +400,23 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(225, 29, 72, 0.85), rgba(190, 18, 60, 0.6), transparent);
+            background: linear-gradient(to top, rgba(15, 118, 110, 0.9), rgba(11, 93, 87, 0.65), transparent);
             display: flex;
             align-items: flex-end;
             padding: 40px;
+            backdrop-filter: blur(2px);
         }
 
         .hero-content {
             color: var(--white);
             max-width: 700px;
+            animation: fadeUp 0.9s ease both;
         }
 
         .hero-content h2 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
+            text-shadow: 0 8px 20px rgba(17, 24, 39, 0.35);
         }
 
         .hero-content p {
@@ -401,6 +441,7 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             border-top: 4px solid var(--primary);
+            border: 1px solid rgba(15, 23, 42, 0.06);
         }
 
         .stat-card:hover {
@@ -454,19 +495,24 @@
         }
 
         .card {
-            background: linear-gradient(135deg, var(--primary), #be123c);
+            background: linear-gradient(135deg, var(--primary), #0b5d57);
             border-radius: var(--radius);
             padding: 40px 30px;
             color: var(--white);
             box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
         }
 
         .card:nth-child(2) {
-            background: linear-gradient(135deg, var(--secondary), #d97706);
+            background: linear-gradient(135deg, var(--secondary), #0ea5a4);
         }
 
         .card:nth-child(3) {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: linear-gradient(135deg, var(--success), #15803d);
         }
 
         .card-icon {
@@ -490,6 +536,16 @@
             color: var(--white);
             margin: 60px 0;
             box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: "";
+            position: absolute;
+            inset: -80px;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.25), transparent 60%);
+            opacity: 0.6;
         }
 
         .cta h3 {
@@ -542,6 +598,7 @@
             padding: 40px;
             box-shadow: var(--shadow);
             margin-bottom: 40px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
         }
 
         /* Dormitory Section */
@@ -572,6 +629,7 @@
             box-shadow: var(--shadow-lg);
             max-width: 900px;
             margin: 0 auto;
+            border: 1px solid rgba(15, 23, 42, 0.06);
         }
 
         .amount-options {
@@ -590,6 +648,7 @@
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 10px 15px -20px rgba(15, 23, 42, 0.45);
         }
 
         .amount-option:hover, .amount-option.selected {
@@ -642,7 +701,7 @@
             padding: 12px 15px;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'IBM Plex Sans', sans-serif;
         }
 
         .form-group textarea {
@@ -717,6 +776,7 @@
             align-items: center;
             gap: 8px;
             z-index: 10;
+            backdrop-filter: blur(8px);
         }
 
         .map-link:hover {
@@ -918,7 +978,7 @@
             align-items: center;
             gap: 10px;
             padding: 15px 30px;
-            border-radius: 8px;
+            border-radius: 999px;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
@@ -980,7 +1040,7 @@
         /* Ödeme Sağlayıcı Seçimi */
         .payment-provider-selector {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
@@ -1009,6 +1069,24 @@
         .payment-provider-option i {
             font-size: 1.5rem;
         }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1019,7 +1097,7 @@
                 <img src="dereciler_logo.png" alt="Dudullu Kurs ve Okul Talebelerine Yardım Derneği Logo" class="logo">
                 <div class="logo-text">
                     <h1>Dudullu Kurs ve Okul Talebelerine Yardım Derneği</h1>
-                    <p>Nesillerin emanetine sahip çıkıyoruz.</p>
+                    <p>Nesillere sahip çıkıyoruz.</p>
                 </div>
             </div>
             
@@ -1069,7 +1147,7 @@
                     <img src="dereciler.jpg" alt="Dereciler Kız Talebe Yurdu" class="hero-image">
                     <div class="hero-overlay">
                         <div class="hero-content">
-                            <h2>Nesillerin Emanetine Sahip Çıkıyoruz</h2>
+                            <h2>“Bir neslin ihyası kötülerin imhasıyla değil, neslin eğitim ve terbiyesiyle mümkündür”</h2>
                             <p>2022 yılından bu yana, milletimizin geleceği olan gençlerimize sahip çıkıyor, eğitim yolculuklarında onları destekliyoruz.</p>
                             <a href="#bagis" class="btn btn-primary">
                                 <i class="fas fa-heart"></i> Hemen Bağış Yap
@@ -1197,7 +1275,7 @@
                             <i class="fas fa-eye"></i>
                         </div>
                         <h3>VİZYONUMUZ</h3>
-                        <p>Eğitim ve kültür alanında örnek bir kurum olarak; kendini geliştiren, inancına ve ülkesine bağlı, ilim ve ahlakla donanmış bir gençlik yetiştirmektir. Toplumda güvenilir, saygın ve kalıcı bir değer olmayı hedefliyoruz.</p>
+                        <p>Eğitim ve kültür alanında örnek bir müessese olma şuuruyla; milli ve manevi değerlerine sadık, ilim ve ahlakla mücehhez, kendini sürekli geliştiren bir neslin yetişmesine hizmet etmeyi gaye ediniyor; toplum nezdinde güven telkin eden, saygınlığıyla temayüz eden ve kalıcı bir değer olma istikametinde azim ve gayret gösteriyoruz.</p>
                     </div>
                 </div>
             </div>
@@ -1219,7 +1297,7 @@
                     <div>
                         <div class="card" style="margin-bottom: 30px;">
                             <h3>Dereciler Kız Talebe Yurdu</h3>
-                            <p>Yurdumuz, öğrencilerimize ev konforu sunan, güvenli ve huzurlu bir ortam sağlamaktadır. Modern tesislerimizde barınma, beslenme ve eğitim ihtiyaçları eksiksiz karşılanmaktadır.</p>
+                            <p>Yurdumuz, öğrencilerimize ev konforu sunan, güvenli ve huzurlu bir ortam sağlamaktadır. Modern binamızda barınma, beslenme ve eğitim ihtiyaçları karşılanmaktadır.</p>
                         </div>
                         
                         <div class="about-content">
@@ -1345,7 +1423,11 @@
                         <div style="margin: 30px 0;">
                             <label style="display: block; font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;">Ödeme Sağlayıcı Seçin</label>
                             <div class="payment-provider-selector" id="paymentProviderSelector">
-                                <div class="payment-provider-option selected" data-provider="iyizico">
+                                <div class="payment-provider-option selected" data-provider="paynkolay">
+                                    <i class="fas fa-seedling"></i>
+                                    <span>Paynkolay VPOS</span>
+                                </div>
+                                <div class="payment-provider-option" data-provider="iyizico">
                                     <i class="fas fa-credit-card"></i>
                                     <span>İyizico</span>
                                 </div>
@@ -1524,7 +1606,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <img src="dereciler_logo.png" alt="Dudullu Kurs ve Okul Talebelerine Yardım Derneği Logo" class="footer-logo">
-                    <p>Nesillerin emanetine sahip çıkıyoruz.<br>2022 yılından bu yana gençlerimizin eğitimine destek oluyor, geleceklerine ışık tutuyoruz.</p>
+                    <p>Nesillere sahip çıkıyoruz.<br>“Bir neslin ihyası kötülerin imhasıyla değil, neslin eğitim ve terbiyesiyle mümkündür”</p>
                 </div>
                 
                 <div class="footer-section">
@@ -1664,7 +1746,7 @@
             
             // Ödeme sağlayıcı seçimi
             const paymentProviderOptions = document.querySelectorAll('.payment-provider-option');
-            let selectedProvider = 'iyizico'; // Varsayılan
+            let selectedProvider = 'paynkolay'; // Varsayılan
             
             paymentProviderOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -1886,6 +1968,9 @@
                 
                 // Seçilen ödeme sağlayıcısına göre işlem yap
                 switch(paymentData.provider) {
+                    case 'paynkolay':
+                        result = await processPaynkolayPayment(paymentData);
+                        break;
                     case 'iyizico':
                         result = await processIyizicoPayment(paymentData);
                         break;
@@ -1910,7 +1995,7 @@
                         return;
                     }
                     
-                    // HTML içerik varsa (İyizico 3D Secure)
+                    // HTML içerik varsa (İyizico 3D Secure veya Paynkolay 3D)
                     if (result.htmlContent) {
                         const popup = window.open('', '3DSecure', 'width=600,height=700');
                         popup.document.write(result.htmlContent);
@@ -1968,6 +2053,70 @@
                 paymentProcessing.classList.remove('active');
                 creditCardForm.style.display = 'block';
                 alert('Ödeme işlemi sırasında bir hata oluştu: ' + error.message + '\n\nLütfen tekrar deneyiniz veya banka havalesi ile bağış yapınız.');
+            }
+        }
+
+        // Paynkolay VPOS Entegrasyonu
+        async function processPaynkolayPayment(paymentData) {
+            // NOT: Gerçek API anahtarları backend'de saklanmalı ve güvenli bir şekilde kullanılmalıdır
+            const backendUrl = '/api/payment/paynkolay'; // Backend endpoint'iniz
+
+            const paynkolayData = {
+                amount: paymentData.amount.toFixed(2),
+                cardNumber: paymentData.cardNumber,
+                cardExpiry: paymentData.cardExpiry,
+                cardCvc: paymentData.cardCvc,
+                cardHolderName: paymentData.cardHolderName,
+                donorName: paymentData.donorName || 'Bağışçı',
+                donorEmail: paymentData.donorEmail || '',
+                donorPhone: paymentData.donorPhone || '',
+                installment: paymentData.installment
+            };
+
+            try {
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paynkolayData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Backend hatası: ' + response.status);
+                }
+
+                const result = await response.json();
+
+                if (result.status === 'success' && result.htmlContent) {
+                    return {
+                        success: true,
+                        htmlContent: result.htmlContent,
+                        transactionId: result.transactionId
+                    };
+                } else if (result.status === 'success') {
+                    return {
+                        success: true,
+                        transactionId: result.transactionId
+                    };
+                } else {
+                    throw new Error(result.errorMessage || 'Paynkolay ödeme işlemi başarısız');
+                }
+            } catch (error) {
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError') || error.status === 404) {
+                    console.warn('Backend bağlantısı yok, demo modunda çalışılıyor');
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve({
+                                success: true,
+                                transactionId: generateOrderId(),
+                                message: 'Demo modu: Gerçek ödeme için backend entegrasyonu gerekli'
+                            });
+                        }, 2000);
+                    });
+                } else {
+                    throw error;
+                }
             }
         }
         
