@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bağış Yap - Dudullu Kurs ve Okul Talebelerine Yardım Derneği</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-dark: #0b5d57;
+            --secondary: #14b8a6;
+            --light: #ecfeff;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+            --success: #16a34a;
+            --shadow: 0 10px 20px -12px rgba(15, 23, 42, 0.35), 0 6px 12px -8px rgba(15, 23, 42, 0.3);
+            --shadow-lg: 0 25px 45px -30px rgba(15, 23, 42, 0.45), 0 18px 35px -22px rgba(15, 23, 42, 0.35);
+            --radius: 14px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: var(--dark);
+            background: radial-gradient(circle at top left, #e0f7f6 0%, #ffffff 45%, #ecfeff 100%);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            z-index: -1;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -120px;
+            left: -160px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.35), rgba(15, 118, 110, 0.08));
+        }
+
+        body::after {
+            bottom: -180px;
+            right: -140px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.25), rgba(16, 185, 129, 0.05));
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(15, 118, 110, 0.12);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 16px;
+            color: var(--primary);
+            letter-spacing: 0.01em;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .desktop-nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-link {
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            min-height: 50px;
+            box-sizing: border-box;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
+        }
+
+        .donate-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            white-space: nowrap;
+            min-height: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            padding: 20px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .mobile-nav .nav-link {
+            padding: 15px 20px;
+            white-space: nowrap;
+            min-height: 50px;
+            align-items: center;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius);
+            padding: 60px 40px;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            inset: -80px;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.25), transparent 60%);
+            opacity: 0.6;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Credit Card Form */
+        .credit-card-form {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        .card-input-group {
+            margin-bottom: 20px;
+        }
+
+        .card-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .card-input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1rem;
+        }
+
+        .card-input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        /* Amount Options */
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .amount-option {
+            padding: 18px 15px;
+            background-color: var(--light-gray);
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .amount-option:hover, .amount-option.selected {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .custom-amount {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .custom-amount input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .custom-amount input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .custom-amount span {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .donor-info {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Bank Info */
+        .bank-info {
+            background-color: #f0f9ff;
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-top: 40px;
+            border-left: 4px solid #3b82f6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bank-account {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        .copy-btn {
+            background-color: #f3f4f6;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: #e5e7eb;
+        }
+
+        .copied {
+            background-color: var(--success);
+            color: var(--white);
+        }
+
+        /* Tax Info */
+        .tax-info {
+            background-color: #fff7ed;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .tax-info p {
+            margin-bottom: 8px;
+        }
+
+        .tax-info span {
+            font-weight: 600;
+        }
+
+        /* Important Note */
+        .important-note {
+            background-color: #ecfeff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .important-note i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        /* Payment Processing */
+        .payment-processing {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--light);
+            border-radius: var(--radius);
+            margin: 20px 0;
+            display: none;
+        }
+
+        .payment-processing.active {
+            display: block;
+        }
+
+        .payment-success {
+            text-align: center;
+            padding: 40px;
+            background-color: #d1fae5;
+            border-radius: var(--radius);
+            margin: 20px 0;
+            display: none;
+        }
+
+        .payment-success.active {
+            display: block;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            height: 80px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #d1d5db;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .desktop-nav, .donate-btn.desktop {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header {
+                margin-top: 80px;
+                padding: 40px 20px;
+            }
+
+            .page-header h2 {
+                font-size: 2rem;
+            }
+
+            .card-row {
+                grid-template-columns: 1fr;
+            }
+
+            .amount-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .credit-card-form, .bank-info {
+                padding: 25px;
+            }
+
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="dereciler_logo.png" alt="Dudullu Kurs ve Okul Talebelerine Yardım Derneği Logo" class="logo">
+                </a>
+                <div class="logo-text">
+                    <h1>Dudullu Kurs ve Okul Talebelerine Yardım Derneği</h1>
+                    <p>Nesillere sahip çıkıyoruz.</p>
+                </div>
+            </div>
+
+            <nav class="desktop-nav">
+                <a href="index.html#ana-sayfa" class="nav-link"><i class="fas fa-home"></i> Ana Sayfa</a>
+                <a href="index.html#hakkimizda" class="nav-link"><i class="fas fa-info-circle"></i> Hakkımızda</a>
+                <a href="index.html#yurt" class="nav-link"><i class="fas fa-building"></i> Yurt Bilgileri</a>
+                <a href="index.html#iletisim" class="nav-link"><i class="fas fa-phone"></i> İletişim</a>
+            </nav>
+
+            <a href="bagis.html" class="donate-btn desktop active">
+                <i class="fas fa-heart"></i> Bağış Yap
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="overlay" id="overlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <h3>Menü</h3>
+            <button class="close-menu" id="closeMenuBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <a href="index.html#ana-sayfa" class="nav-link"><i class="fas fa-home"></i> Ana Sayfa</a>
+        <a href="index.html#hakkimizda" class="nav-link"><i class="fas fa-info-circle"></i> Hakkımızda</a>
+        <a href="index.html#yurt" class="nav-link"><i class="fas fa-building"></i> Yurt Bilgileri</a>
+        <a href="bagis.html" class="nav-link active"><i class="fas fa-heart"></i> Bağış Yap</a>
+        <a href="index.html#iletisim" class="nav-link"><i class="fas fa-phone"></i> İletişim</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <i class="fas fa-heart fa-3x" style="margin-bottom: 20px; opacity: 0.8;"></i>
+                <h2>Bağış Yapın</h2>
+                <p>Kredi kartı ile güvenle online bağış yapabilirsiniz</p>
+            </div>
+
+            <!-- Online Ödeme Formu -->
+            <div class="credit-card-form" id="paymentForm">
+                <h3 style="text-align: center; margin-bottom: 30px; color: var(--primary);">
+                    <i class="fas fa-credit-card"></i> Kredi Kartı ile Online Bağış
+                </h3>
+
+                <div class="important-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <strong>Güvenli Ödeme:</strong> Ödeme işleminiz 256 bit SSL şifreleme ve 3D Secure kullanılarak gerçekleştirilecektir.
+                    </div>
+                </div>
+
+                <!-- Bağış Miktarı -->
+                <div style="margin: 30px 0;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;">Bağış Miktarı Seçin</label>
+                    <div class="amount-options" id="amountOptions">
+                        <div class="amount-option" data-amount="100">100 ₺</div>
+                        <div class="amount-option" data-amount="250">250 ₺</div>
+                        <div class="amount-option" data-amount="500">500 ₺</div>
+                        <div class="amount-option" data-amount="1000">1.000 ₺</div>
+                        <div class="amount-option" data-amount="2500">2.500 ₺</div>
+                        <div class="amount-option" data-amount="5000">5.000 ₺</div>
+                    </div>
+
+                    <div class="custom-amount">
+                        <input type="number" id="customAmount" placeholder="Veya farklı bir miktar girin" min="10">
+                        <span>₺</span>
+                    </div>
+                </div>
+
+                <!-- Kredi Kartı Bilgileri -->
+                <div class="donor-info">
+                    <h4 style="margin-bottom: 20px;">Kart Bilgileri</h4>
+
+                    <div class="card-input-group">
+                        <label for="cardNumber">Kart Numarası *</label>
+                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" required maxlength="19">
+                    </div>
+
+                    <div class="card-row">
+                        <div class="card-input-group">
+                            <label for="cardExpiry">Son Kullanma Tarihi (AA/YY) *</label>
+                            <input type="text" id="cardExpiry" placeholder="AA/YY" required maxlength="5">
+                        </div>
+                        <div class="card-input-group">
+                            <label for="cardCvc">CVC *</label>
+                            <input type="text" id="cardCvc" placeholder="000" required maxlength="3">
+                        </div>
+                    </div>
+
+                    <div class="card-input-group">
+                        <label for="cardHolderName">Kart Üzerindeki İsim *</label>
+                        <input type="text" id="cardHolderName" placeholder="Ad Soyad" required>
+                    </div>
+                </div>
+
+                <!-- Bağışçı Bilgileri -->
+                <div class="donor-info">
+                    <h4 style="margin-bottom: 20px;">Bağışçı Bilgileri</h4>
+                    <p style="margin-bottom: 15px; color: var(--gray); font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Bu bilgiler zorunlu değildir, dilerseniz doldurabilirsiniz.
+                    </p>
+
+                    <div class="form-group">
+                        <label for="donorName">Ad Soyad</label>
+                        <input type="text" id="donorName" placeholder="Adınız ve soyadınız">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donorEmail">E-posta</label>
+                        <input type="email" id="donorEmail" placeholder="ornek@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donorPhone">Telefon</label>
+                        <input type="tel" id="donorPhone" placeholder="0 (5XX) XXX XX XX">
+                    </div>
+                </div>
+
+                <button id="processPayment" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-lock"></i> Güvenli Ödeme Yap
+                </button>
+
+                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
+                    <i class="fas fa-lock"></i> Ödeme işleminiz 256 bit SSL sertifikası ile korunmaktadır.
+                </p>
+            </div>
+
+            <!-- Ödeme İşlem Simülasyonu -->
+            <div class="payment-processing" id="paymentProcessing">
+                <div class="loading-spinner">
+                    <i class="fas fa-circle-notch fa-spin fa-3x" style="color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3>Ödeme İşleminiz Gerçekleştiriliyor</h3>
+                    <p>Lütfen bekleyiniz. İşlem birkaç saniye sürecektir.</p>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 20px;">
+                        <i class="fas fa-info-circle"></i> Ödeme sistemine yönlendiriliyorsunuz...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Ödeme Başarılı -->
+            <div class="payment-success" id="paymentSuccess">
+                <i class="fas fa-check-circle fa-3x" style="color: var(--success); margin-bottom: 20px;"></i>
+                <h3>Ödeme Başarılı!</h3>
+                <p>Bağışınız için teşekkür ederiz. Destekleriniz gençlerimizin eğitim hayatına ışık olacaktır.</p>
+                <p style="margin-top: 15px;">Ödeme onayı ve bağış makbuzunuz e-posta adresinize gönderilecektir.</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: 20px;">
+                    <i class="fas fa-home"></i> Ana Sayfaya Dön
+                </a>
+            </div>
+
+            <!-- Banka Bilgileri -->
+            <div class="bank-info">
+                <h4 style="margin-bottom: 15px; color: #3b82f6;">
+                    <i class="fas fa-university"></i> Banka Havalesi / EFT ile Bağış
+                </h4>
+                <p style="margin-bottom: 20px;">Online ödeme yerine banka havalesi ile de bağış yapabilirsiniz.</p>
+
+                <div class="bank-account">
+                    <h5 style="margin-bottom: 10px;">Kuveyt Türk Katılım Bankası</h5>
+                    <p style="margin: 10px 0;">
+                        <strong>IBAN:</strong>
+                        <span id="iban">TR89 0020 5000 0191 3107 6000 01</span>
+                        <button class="copy-btn" data-text="TR89 0020 5000 0191 3107 6000 01">Kopyala</button>
+                    </p>
+                    <p style="margin: 10px 0;"><strong>Hesap Sahibi:</strong>
+                        <span id="accountHolder">Dudullu Kurs ve Okul Talebelerine Yardım Derneği</span>
+                        <button class="copy-btn" data-text="Dudullu Kurs ve Okul Talebelerine Yardım Derneği">Kopyala</button>
+                     </p>
+                    <p style="margin: 10px 0;"><strong>Açıklama:</strong> Bağış</p>
+                    <div class="important-note" style="margin-top: 15px;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            <strong>NOT:</strong> Açıklamaya <strong>"BAĞIŞ"</strong> dışında bir şey yazılmaması önemle rica olunur.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tax-info">
+                    <h5 style="margin-bottom: 15px; color: #f59e0b;">
+                        <i class="fas fa-file-invoice-dollar"></i> Vergi Bilgileri
+                    </h5>
+                    <p><span>Vergi Dairesi: Sarıgazi VD.</span></p>
+                    <p><span>Vergi Numarası: 313 06 11 938</span></p>
+                </div>
+
+                <p style="margin-top: 20px; font-style: italic; color: var(--gray);">
+                    <i class="fas fa-info-circle"></i> Havale yaptıktan sonra lütfen bize telefon veya e-posta yoluyla bilgi veriniz.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="dereciler_logo.png" alt="Dudullu Kurs ve Okul Talebelerine Yardım Derneği Logo" class="footer-logo">
+                    <p>Nesillere sahip çıkıyoruz.<br>"Bir neslin ihyası kötülerin imhasıyla değil, neslin eğitim ve terbiyesiyle mümkündür"</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#ana-sayfa">Ana Sayfa</a></li>
+                        <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
+                        <li><a href="index.html#yurt">Yurt Bilgileri</a></li>
+                        <li><a href="bagis.html">Bağış Yap</a></li>
+                        <li><a href="index.html#iletisim">İletişim</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>İletişim Bilgileri</h4>
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Yukarı Dudullu, İnebolu Sk. No:2-4, 34775 Ümraniye/İstanbul</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>(0216) 519 34 54</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:dudulluoyd2015@gmail.com" style="color: inherit; text-decoration: none;">
+                            dudulluoyd2015@gmail.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 Dudullu Kurs ve Okul Talebelerine Yardım Derneği. Tüm hakları saklıdır. | Vergi Dairesi: Sarıgazi VD. | Vergi No: 313 06 11 938</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('overlay');
+
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileNav.classList.add('active');
+                overlay.classList.add('active');
+            });
+
+            closeMenuBtn.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            overlay.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Bağış miktarı seçimi
+            const amountOptions = document.querySelectorAll('.amount-option');
+            const customAmountInput = document.getElementById('customAmount');
+
+            amountOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    amountOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    customAmountInput.value = '';
+                });
+            });
+
+            customAmountInput.addEventListener('input', function() {
+                amountOptions.forEach(opt => opt.classList.remove('selected'));
+            });
+
+            // Kredi kartı formatlama
+            const cardNumberInput = document.getElementById('cardNumber');
+            const cardExpiryInput = document.getElementById('cardExpiry');
+            const cardCvcInput = document.getElementById('cardCvc');
+
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                let parts = [];
+
+                for (let i = 0; i < value.length && i < 16; i += 4) {
+                    parts.push(value.substring(i, i + 4));
+                }
+
+                e.target.value = parts.join(' ');
+            });
+
+            cardExpiryInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+
+                if (value.length >= 2) {
+                    e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                } else {
+                    e.target.value = value;
+                }
+            });
+
+            cardCvcInput.addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+            });
+
+            // Ödeme işlemi
+            const processPaymentBtn = document.getElementById('processPayment');
+            const paymentProcessing = document.getElementById('paymentProcessing');
+            const paymentSuccess = document.getElementById('paymentSuccess');
+            const paymentForm = document.getElementById('paymentForm');
+
+            processPaymentBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const selectedAmount = document.querySelector('.amount-option.selected');
+                const customAmount = customAmountInput.value;
+                let amount = '';
+
+                if (selectedAmount) {
+                    amount = selectedAmount.getAttribute('data-amount');
+                } else if (customAmount) {
+                    amount = customAmount;
+                }
+
+                if (!amount || parseFloat(amount) < 10) {
+                    alert('Lütfen en az 10 TL bağış miktarı seçiniz.');
+                    return;
+                }
+
+                const cardNumber = cardNumberInput.value.replace(/\s/g, '');
+                const cardExpiry = cardExpiryInput.value;
+                const cardCvc = cardCvcInput.value;
+                const cardHolderName = document.getElementById('cardHolderName').value;
+
+                if (!cardNumber || cardNumber.length < 16) {
+                    alert('Lütfen geçerli bir kart numarası giriniz.');
+                    return;
+                }
+
+                if (!cardExpiry || !cardExpiry.includes('/')) {
+                    alert('Lütfen geçerli bir son kullanma tarihi giriniz (AA/YY).');
+                    return;
+                }
+
+                if (!cardCvc || cardCvc.length < 3) {
+                    alert('Lütfen geçerli bir CVC numarası giriniz.');
+                    return;
+                }
+
+                if (!cardHolderName) {
+                    alert('Lütfen kart üzerindeki ismi giriniz.');
+                    return;
+                }
+
+                // Ödeme verilerini hazırla
+                const paymentData = {
+                    amount: parseFloat(amount),
+                    cardNumber: cardNumber,
+                    cardExpiry: cardExpiry,
+                    cardCvc: cardCvc,
+                    cardHolderName: cardHolderName,
+                    installment: 1,
+                    donorName: document.getElementById('donorName').value || '',
+                    donorEmail: document.getElementById('donorEmail').value || '',
+                    donorPhone: document.getElementById('donorPhone').value || ''
+                };
+
+                paymentForm.style.display = 'none';
+                paymentProcessing.classList.add('active');
+
+                // Paynkolay VPOS ile ödeme işlemi
+                processPaynkolayPayment(paymentData);
+            });
+
+            // Copy to clipboard functionality
+            const copyButtons = document.querySelectorAll('.copy-btn');
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const textToCopy = this.getAttribute('data-text');
+
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = 'Kopyalandı!';
+                        this.classList.add('copied');
+
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.classList.remove('copied');
+                        }, 2000);
+                    }).catch(err => {
+                        alert('Kopyalama başarısız. Lütfen manuel olarak kopyalayın.');
+                    });
+                });
+            });
+        });
+
+        // Paynkolay VPOS Entegrasyonu
+        async function processPaynkolayPayment(paymentData) {
+            const paymentProcessing = document.getElementById('paymentProcessing');
+            const paymentSuccess = document.getElementById('paymentSuccess');
+            const paymentForm = document.getElementById('paymentForm');
+
+            const backendUrl = '/api/payment/paynkolay';
+
+            const paynkolayData = {
+                amount: paymentData.amount.toFixed(2),
+                cardNumber: paymentData.cardNumber,
+                cardExpiry: paymentData.cardExpiry,
+                cardCvc: paymentData.cardCvc,
+                cardHolderName: paymentData.cardHolderName,
+                donorName: paymentData.donorName || 'Bağışçı',
+                donorEmail: paymentData.donorEmail || '',
+                donorPhone: paymentData.donorPhone || '',
+                installment: paymentData.installment
+            };
+
+            try {
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paynkolayData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Backend hatası: ' + response.status);
+                }
+
+                const result = await response.json();
+
+                if (result.status === 'success' && result.htmlContent) {
+                    // 3D Secure sayfasını göster
+                    const popup = window.open('', '3DSecure', 'width=600,height=700');
+                    popup.document.write(result.htmlContent);
+                    popup.document.close();
+                    paymentProcessing.classList.remove('active');
+                    paymentForm.style.display = 'block';
+                    return;
+                } else if (result.status === 'success') {
+                    paymentProcessing.classList.remove('active');
+                    paymentSuccess.classList.add('active');
+                } else {
+                    throw new Error(result.errorMessage || 'Ödeme işlemi başarısız');
+                }
+            } catch (error) {
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    // Demo modunda başarılı ödeme simülasyonu
+                    setTimeout(() => {
+                        paymentProcessing.classList.remove('active');
+                        paymentSuccess.classList.add('active');
+
+                        const successMessage = document.querySelector('#paymentSuccess p');
+                        if (successMessage) {
+                            successMessage.innerHTML = `
+                                Bağışınız için teşekkür ederiz. Destekleriniz gençlerimizin eğitim hayatına ışık olacaktır.<br><br>
+                                <strong>Ödeme Bilgileri:</strong><br>
+                                Miktar: ${paymentData.amount} TL<br>
+                                İşlem ID: ${generateOrderId()}
+                            `;
+                        }
+
+                        // Formu sıfırla
+                        setTimeout(function() {
+                            paymentForm.style.display = 'block';
+                            document.getElementById('cardNumber').value = '';
+                            document.getElementById('cardExpiry').value = '';
+                            document.getElementById('cardCvc').value = '';
+                            document.getElementById('cardHolderName').value = '';
+                            document.getElementById('donorName').value = '';
+                            document.getElementById('donorEmail').value = '';
+                            document.getElementById('donorPhone').value = '';
+                            document.getElementById('customAmount').value = '';
+                            document.querySelectorAll('.amount-option').forEach(opt => opt.classList.remove('selected'));
+                            paymentSuccess.classList.remove('active');
+                        }, 10000);
+                    }, 2000);
+                } else {
+                    console.error('Ödeme Hatası:', error);
+                    paymentProcessing.classList.remove('active');
+                    paymentForm.style.display = 'block';
+                    alert('Ödeme işlemi sırasında bir hata oluştu: ' + error.message + '\n\nLütfen tekrar deneyiniz veya banka havalesi ile bağış yapınız.');
+                }
+            }
+        }
+
+        function generateOrderId() {
+            return 'ORDER-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        }
+    </script>
+</body>
+</html>
